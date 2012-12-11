@@ -25,12 +25,6 @@ interface Filter
 	var calculatedVelocity(get_calculatedVelocity, null):Float;
 	
 	/**
-	 * The filter should be called in regular intervals.
-	 * In here, you can set the interval each update will be called.
-	 */
-	var secondsPerTimeStep(get_secondsPerTimeStep, set_secondsPerTimeStep):Float;
-	
-	/**
 	 * Updates 
 	 * @param	p	the new observed position, from the GPS device
 	 * @param	secondsSinceLastUpdate	how many seconds have elapsed since last update

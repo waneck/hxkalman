@@ -1,5 +1,6 @@
 package ;
 
+import gps.test.TestKalman;
 import gps.test.TestMatrix;
 import neko.Lib;
 import utest.Runner;
@@ -19,6 +20,7 @@ class TestMain
 		var runner = new Runner();
 		
 		runner.addCase(new TestMatrix());
+		runner.addCase(new TestKalman());
 		
 		Report.create(runner);
 		runner.run();

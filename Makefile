@@ -1,2 +1,2 @@
-all:
+test:
 	haxe build.hxml

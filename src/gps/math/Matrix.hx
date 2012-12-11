@@ -129,13 +129,13 @@ class Matrix
 		if (a.cols != b.rows || a.rows != result.rows || b.cols != result.cols) throw "assert";
 		
 		var rc = a.rows, ad = a.data, bd = b.data, cd = result.data;
-		for (i in 0...rc)
-			for (j in 0...rc)
+		for (i in 0...result.rows)
+			for (j in 0...result.cols)
 			{
 				cd[j + i * rc] = 0;
-				for (k in 0...rc)
+				for (k in 0...a.cols)
 				{
-					cd[j + i * rc] += ad[k + i * rc] * bd[j + k * rc];
+					cd[j + i * result.cols] += ad[k + i * a.cols] * bd[j + k * b.cols];
 				}
 			}
 	}
@@ -149,16 +149,16 @@ class Matrix
 	 */
 	public static function multiplyByTranspose(a:Matrix, b:Matrix, result:Matrix):Void
 	{
-		if (a.cols != b.rows || a.rows != result.rows || b.cols != result.cols) throw "assert";
+		if (a.cols != b.cols || a.rows != result.rows || b.rows != result.cols) throw "assert";
 		
 		var rc = a.rows, ad = a.data, bd = b.data, cd = result.data;
-		for (i in 0...rc)
-			for (j in 0...rc)
+		for (i in 0...result.rows)
+			for (j in 0...result.cols)
 			{
 				cd[j + i * rc] = 0;
-				for (k in 0...rc)
+				for (k in 0...a.cols)
 				{
-					cd[j + i * rc] += ad[k + i * rc] * bd[k + j * rc];
+					cd[j + i * result.cols] += ad[k + i * a.cols] * bd[k + j * b.cols];
 				}
 			}
 	}

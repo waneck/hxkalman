@@ -2,3 +2,4 @@
 -cp test
 -main TestMain
 -n bin/Hxkalman.n
+-lib utest

@@ -27,18 +27,12 @@ class KalmanFilter implements Filter
 	 */
 	public var calculatedVelocity(get_calculatedVelocity, null):Float;
 	
-	/**
-	 * The filter should be called in regular intervals.
-	 * In here, you can set the interval each update will be called.
-	 */
-	public var secondsPerTimeStep(get_secondsPerTimeStep, set_secondsPerTimeStep):Float;
-	
 	public var noise(default, null):Float;
 	
 	private var f:Kalman;
 	
-	private var deltaLat:Float;
-	private var deltaLon:Float;
+	public var deltaLat(default, null):Float;
+	public var deltaLon(default, null):Float;
 	
 	public function new(noise:Float) 
 	{
@@ -57,7 +51,7 @@ class KalmanFilter implements Filter
 		*/
 		var v2p = 0.001;
 		f.state_transition.identity();
-		secondsPerTimeStep(1.0);
+		setSecondsPerTimestep(1.0);
 		
 		/* We observe (x, y) in each time step */
 		f.observation_model = new Matrix(4, 2,
@@ -90,7 +84,7 @@ class KalmanFilter implements Filter
 		f.estimate_covariance.scale(trillion);
 	}
 	
-	private setSecondsPerTimestep(seconds_per_timestep:Float)
+	private function setSecondsPerTimestep(seconds_per_timestep:Float)
 	{
 		/* unit_scaler accounts for the relation between position and
 		 * velocity units */

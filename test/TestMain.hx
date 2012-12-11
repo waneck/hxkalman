@@ -17,7 +17,6 @@ class TestMain
 	
 	static function main() 
 	{
-		var t = untyped new TestFilter().testBearingSouth();
 		var runner = new Runner();
 		
 		runner.addCase(new TestMatrix());

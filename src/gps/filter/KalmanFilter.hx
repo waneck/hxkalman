@@ -10,7 +10,7 @@ import gps.Position;
 
 class KalmanFilter implements Filter
 {
-	static inline var EARTH_RADIUS_IN_KM = 6371;
+	static inline var EARTH_RADIUS_IN_M = 6371000;
 	
 	/**
 	 * The original position, as observed by the device
@@ -54,7 +54,7 @@ class KalmanFilter implements Filter
 		setSecondsPerTimestep(1.0);
 		
 		/* We observe (x, y) in each time step */
-		f.observation_model = new Matrix(4, 2,
+		f.observation_model = new Matrix(2, 4,
 		[
 			1.0, 0.0, 0.0, 0.0,
 			0.0, 1.0, 0.0, 0.0
@@ -113,14 +113,15 @@ class KalmanFilter implements Filter
 	public function update(p:Position, secondsSinceLastUpdate:Float):Void 
 	{
 		this.observedPosition = p;
+		this.setSecondsPerTimestep(secondsSinceLastUpdate);
 		//f.observation = new Matrix(2, 1, [ p.lat * 1000.0, p.lon * 1000.0 ]);
 		f.observation.set(0, 0, p.lat * 1000);
 		f.observation.set(1, 0, p.lon * 1000);
 		
 		f.update();
-		this.calculatedPosition = new Position(f.state_estimate.get(0, 0), f.state_estimate.get(1, 0));
-		this.deltaLat = f.state_estimate.get(2, 0);
-		this.deltaLon = f.state_estimate.get(3, 0);
+		this.calculatedPosition = new Position(f.state_estimate.get(0, 0) / 1000, f.state_estimate.get(1, 0) / 1000);
+		this.deltaLat = f.state_estimate.get(2, 0) / (1000 * 1000);
+		this.deltaLon = f.state_estimate.get(3, 0) / (1000 * 1000);
 		
 		this.calculatedVelocity = calculateVelocity();
 	}
@@ -144,7 +145,7 @@ class KalmanFilter implements Filter
 		var radians_per_second = 2 * Math.atan2(1000.0 * Math.sqrt(a), 1000.0 * Math.sqrt(1.0 - a));
 		
 		/* Convert units */
-		var meters_per_second = radians_per_second * EARTH_RADIUS_IN_KM * 1000;
+		var meters_per_second = radians_per_second * EARTH_RADIUS_IN_M;
 		return meters_per_second;
 	}
 	

@@ -65,16 +65,16 @@ class Matrix
 		var ret = new StringBuf();
 		for (i in 0...rows)
 		{
-			
+			ret.add("\n");
 			for (j in 0...cols)
 			{
 				if (j > 0)
 					ret.add(" ");
-				var v = StringTools.rpad(data[j + i * cols] + "", " ", 12).substr(0,12);
+				var v = StringTools.rpad(data[j + i * cols] + "", " ", 14).substr(0,14);
 				ret.add(v);
 			}
 			
-			ret.add("\n");
+			
 		}
 		
 		return ret.toString();
@@ -91,12 +91,10 @@ class Matrix
 		if (a.rows != b.rows || a.rows != result.rows || a.cols != b.cols || a.cols != result.cols) throw "assert";
 		
 		var ad = a.data, bd = b.data, rd = result.data, rows = a.rows, cols = a.cols;
-		for (i in 0...rows)
-			for (j in 0...cols)
-			{
-				var idx = j + i * a.cols;
-				rd[idx] = ad[idx] + bd[idx];
-			}
+		for (i in 0...(rows * cols))
+		{
+			rd[i] = ad[i] + bd[i];
+		}
 	}
 	
 	/**
@@ -110,12 +108,10 @@ class Matrix
 		if (a.rows != b.rows || a.rows != result.rows || a.cols != b.cols || a.cols != result.cols) throw "assert";
 		
 		var ad = a.data, bd = b.data, rd = result.data, rows = a.rows, cols = a.cols;
-		for (i in 0...rows)
-			for (j in 0...cols)
-			{
-				var idx = j + i * a.cols;
-				rd[idx] = ad[idx] - bd[idx];
-			}
+		for (i in 0...(rows * cols))
+		{
+			rd[i] = ad[i] - bd[i];
+		}
 	}
 	
 	/**
@@ -132,7 +128,7 @@ class Matrix
 		for (i in 0...result.rows)
 			for (j in 0...result.cols)
 			{
-				cd[j + i * rc] = 0;
+				cd[j + i * result.cols] = 0;
 				for (k in 0...a.cols)
 				{
 					cd[j + i * result.cols] += ad[k + i * a.cols] * bd[j + k * b.cols];
@@ -155,7 +151,7 @@ class Matrix
 		for (i in 0...result.rows)
 			for (j in 0...result.cols)
 			{
-				cd[j + i * rc] = 0;
+				cd[j + i * result.cols] = 0;
 				for (k in 0...a.cols)
 				{
 					cd[j + i * result.cols] += ad[k + i * a.cols] * bd[k + j * b.cols];
@@ -271,19 +267,19 @@ class Matrix
 		
 		output.identity();
 		
-		var idata = data, rows = rows;
+		var idata = data, rows = rows, cols = cols;
 		/* Convert input to the identity matrix via elementary row operations.
 		The ith pass through this loop turns the element at i,i to a 1
 		and turns all other elements in column i to a 0. */
 		for (i in 0...rows)
 		{
-			if (idata[i + i * rows] == 0)
+			if (idata[i + i * cols] == 0)
 			{
 				/* We must swap rows to get a nonzero diagonal element. */
 				var r = i + 1;
 				while (r < rows)
 				{
-					if (idata[i + r * rows] != 0)
+					if (idata[i + r * cols] != 0)
 						break;
 					r++;
 				}
@@ -301,7 +297,7 @@ class Matrix
 			
 			/* Scale this row to ensure a 1 along the diagonal.
 			We might need to worry about overflow from a huge scalar here. */
-			var scalar = 1 / data[i + i * rows];
+			var scalar = 1 / data[i + i * cols];
 			scaleRow(i, scalar);
 			output.scaleRow(i, scalar);
 			
@@ -310,7 +306,7 @@ class Matrix
 			{
 				if (i == j)
 					continue;
-				var shearNeeded = -data[i + j * rows];
+				var shearNeeded = -data[i + j * cols];
 				shearRow(j, i, shearNeeded);
 				output.shearRow(j, i, shearNeeded);
 			}

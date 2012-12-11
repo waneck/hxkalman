@@ -2,7 +2,6 @@ package ;
 
 import gps.test.TestKalman;
 import gps.test.TestMatrix;
-import neko.Lib;
 import utest.Runner;
 import utest.TestResult;
 import utest.ui.Report;

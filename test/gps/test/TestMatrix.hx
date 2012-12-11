@@ -40,7 +40,7 @@ class TestMatrix
 		var bar = new Matrix(4, 4);
 		var identity = new Matrix(4, 4);
 		identity.identity();
-		
+			
 		/* foo should be invertible */
 		Assert.isTrue(foo.destructiveInvertMatrix(bar));
 		

@@ -1,4 +1,5 @@
 @echo off
-cd bin
-neko hxkalman.n
+cd bin\Hxkalman
+REM neko hxkalman.n
+TestMain.exe > a
 pause

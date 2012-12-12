@@ -24,16 +24,13 @@ class TestFilter
 		var f = new KalmanFilter(1);
 		for (i in 0...100)
 		{
-			f.update(new Position(i + 0.0001, 0.0), 1.0);
+			f.update(new Position(i * 0.0001, 0.0), 1.0);
 		}
 		var bearing = f.bearing();
 		
-		trace(bearing);
 		Assert.isTrue( Math.abs(bearing) < 0.01 );
 		
 		/* Velocity should be 0.0001 x units per timestep */
-		trace( Math.abs(f.deltaLat - 0.0001) );
-		trace( Math.abs(f.deltaLon - 0.0001) );
 		Assert.isTrue( Math.abs(f.deltaLat - 0.0001) < 0.00001 );
 		Assert.isTrue( Math.abs(f.deltaLon) < 0.00001 );
 	}
@@ -43,11 +40,10 @@ class TestFilter
 		var f = new KalmanFilter(1);
 		for (i in 0...100)
 		{
-			f.update(new Position(0, i + 0.0001), 1);
+			f.update(new Position(0, i * 0.0001), 1);
 		}
 		
 		var bearing = f.bearing();
-		trace(bearing);
 		Assert.isTrue( Math.abs(bearing - 90) < 0.01 );
 		
 		/* 
@@ -60,8 +56,6 @@ class TestFilter
 		*/
 		var ms = f.calculatedVelocity;
 		var kmh = ms * 3.6;
-		trace(ms);
-		trace(kmh);
 		Assert.isTrue( Math.abs(kmh - 40) < 2 );
 	}
 	
@@ -74,7 +68,7 @@ class TestFilter
 		}
 		
 		var bearing = f.bearing();
-		trace(bearing);
+
 		Assert.isTrue( Math.abs(bearing - 100) < 0.01 );
 	}
 	

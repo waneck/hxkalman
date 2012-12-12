@@ -65,7 +65,6 @@ class TestKalman
 		trace("estimated velocity: " + f.state_estimate.get(1, 0));
 		
 		Assert.equals(Math.round(f.state_estimate.get(1, 0)), 1);
-		trace(Math.round(f.state_estimate.get(1, 0)));
 	}
 	
 }

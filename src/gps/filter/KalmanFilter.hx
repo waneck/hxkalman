@@ -130,20 +130,16 @@ class KalmanFilter implements Filter
 		 of the earth traveled in each second. (Presumably this will be
 		 a very small number.) */
 		
-		 trace(f.state_estimate);
 		/* Convert to radians */
-		trace([calculatedPosition.lat, calculatedPosition.lon, deltaLat, deltaLon]);
 		var to_radians = Math.PI / 180.0;
 		var lat = calculatedPosition.lat * to_radians, lon = calculatedPosition.lon * to_radians;
 		var delta_lat = deltaLat * to_radians, delta_lon = deltaLon * to_radians;
-		trace([lat, lon, delta_lat, delta_lon]);
 		/* Haversine formula */
 		var lat1 = lat - delta_lat;
 		var sin_half_dlat = Math.sin(delta_lat / 2.0);
 		var sin_half_dlon = Math.sin(delta_lon / 2.0);
 		var a = sin_half_dlat * sin_half_dlat + Math.cos(lat1) * Math.cos(lat) * sin_half_dlon * sin_half_dlon;
 		var radians_per_second = 2 * Math.atan2(1000.0 * Math.sqrt(a), 1000.0 * Math.sqrt(1.0 - a));
-		trace([lat1, sin_half_dlat, sin_half_dlon, a, radians_per_second]);
 		
 		/* Convert units */
 		var meters_per_second = radians_per_second * EARTH_RADIUS_IN_M;

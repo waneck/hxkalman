@@ -1,6 +1,8 @@
 package gps.test;
+import gps.filter.KalmanFilter;
 import gps.math.Kalman;
 import gps.math.Matrix;
+import gps.Position;
 import utest.Assert;
 
 /**
@@ -14,6 +16,16 @@ class TestKalman
 	public function new() 
 	{
 		
+	}
+	
+	function testCalculateKmh()
+	{
+		var k = new KalmanFilter(1);
+		untyped k.calculatedPosition = new Position(39.315842, -120.167107);
+		untyped k.deltaLat = -0.000031;
+		untyped k.deltaLon = 0.000003;
+		
+		Assert.floatEquals(3.46, k.calculatedVelocity, 0.01);
 	}
 	
 	/* Test the example of a train moving along a 1-d track */

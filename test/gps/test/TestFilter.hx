@@ -69,7 +69,7 @@ class TestFilter
 		
 		var bearing = f.bearing();
 
-		Assert.isTrue( Math.abs(bearing - 100) < 0.01 );
+		Assert.isTrue( Math.abs(bearing - 180) < 0.01 );
 	}
 	
 	function testBearingWest()

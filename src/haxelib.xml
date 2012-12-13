@@ -1,0 +1,7 @@
+<project name="hxkalman" url="https://github.com/waneck/hxkalman" license="MIT">
+    <user name="waneck"/>
+    <tag v="gps"/>
+    <tag v="cross"/>
+    <description>Kalman Filter implementation and other location tools.</description>
+    <version name="0.0.1">Port done, unit tests passing</version>
+</project>

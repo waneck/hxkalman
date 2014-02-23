@@ -1,0 +1,11 @@
+{
+  "name": "hxkalman",
+  "url" : "git@github.com:waneck/hxkalman.git",
+  "license": "MIT",
+  "tags": [],
+  "description": "",
+  "version": "0.0.0",
+  "releasenote": "Updated from git.",
+  "contributors": [],
+  "dependencies": {}
+}

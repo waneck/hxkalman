@@ -2,10 +2,10 @@
   "name": "hxkalman",
   "url" : "git@github.com:waneck/hxkalman.git",
   "license": "MIT",
-  "tags": [],
-  "description": "",
-  "version": "0.0.0",
+  "tags": ["gps","filter","geolocation","math"],
+  "description": "A minimal, dependency-free implementation of kalman filters",
+  "version": "0.1.0",
   "releasenote": "Updated from git.",
-  "contributors": [],
+  "contributors": ["waneck"],
   "dependencies": {}
 }
